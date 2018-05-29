@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{AE25258B-253A-4C90-B37D-49C2976EA55F}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Calculator_jenkins.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Calculator_unitTest.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Calculator_jenkins">
+        <MSBuild Projects="Calculator_jenkins.dproj"/>
+    </Target>
+    <Target Name="Calculator_jenkins:Clean">
+        <MSBuild Projects="Calculator_jenkins.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Calculator_jenkins:Make">
+        <MSBuild Projects="Calculator_jenkins.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Calculator_unitTest">
+        <MSBuild Projects="Calculator_unitTest.dproj"/>
+    </Target>
+    <Target Name="Calculator_unitTest:Clean">
+        <MSBuild Projects="Calculator_unitTest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Calculator_unitTest:Make">
+        <MSBuild Projects="Calculator_unitTest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Calculator_jenkins;Calculator_unitTest"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Calculator_jenkins:Clean;Calculator_unitTest:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Calculator_jenkins:Make;Calculator_unitTest:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
